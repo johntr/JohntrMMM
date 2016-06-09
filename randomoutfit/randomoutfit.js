@@ -6,61 +6,12 @@
 * By: John Redlich http://johnredli.ch
 *
 */
+var closet = require('closet.json');
 
 Module.register("randomoutfit", {
     //default
     defaults: {
-        clothes: {
-            black : {
-                shirts: [
-                    'Burgundy Polo',
-                    'Navy Polo',
-                    'Blue and Salmon Striped Polo',
-                ],
-                pants: [
-                    'Dark Khakis',
-                    'light Khakis',
-                    'grey pants'
-                ],
-                socks: [
-                    'Red Striped',
-                    'Grey Stripes',
-                    'Black'
-                ]
-            },
-            brown: {
-                shirts: [
-                    'Burgundy Polo',
-                    'Navy Polo',
-                    'Blue and Salmon Striped Polo'
-                ],
-                pants: [
-                    'Dark Khakis',
-                    'light Khakis'
-                ],
-                socks: [
-                    'Red Striped',
-                    'Blue'
-                ]
-            },
-            casual: {
-                shirts: [
-                    'NASA T-Shirt',
-                    'Thor T-Shirt',
-                    'Iron Man T-Shirt',
-                    'Capt America T-Shirt',
-                    'Flannel button down'
-                ],
-                pants: [
-                    'Dark jeans',
-                    'Light jeans'
-                ],
-                socks: [
-                    'Black no-show',
-                    'White no-show'
-                ]
-            }
-        },
+        clothes: closet,
         updateInterval: 1000
     },
     //maybe if we pick a random color scheme first we can organize data that way. 
