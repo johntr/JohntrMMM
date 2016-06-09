@@ -6,14 +6,67 @@
 * By: John Redlich http://johnredli.ch
 *
 */
-var closet = require('closet.json');
 
 Module.register("randomoutfit", {
     //default
     defaults: {
-        clothes: closet,
         updateInterval: 1000
     },
+    closet: {
+        clothes: {
+            black: {
+                shirts: [
+                    "Burgundy Polo",
+                    "Navy Polo",
+                    "Blue and Salmon Striped Polo",
+                ],
+                pants: [
+                    "Dark Khakis",
+                    "light Khakis",
+                    "grey pants"
+                ],
+                socks: [
+                    "Red Striped",
+                    "Grey Stripes",
+                    "Black"
+                ]
+            },
+            brown: {
+                shirts: [
+                    "Burgundy Polo",
+                    "Navy Polo",
+                    "Blue and Salmon Striped Polo"
+                ],
+                pants: [
+                    "Dark Khakis",
+                    "light Khakis"
+                ],
+                socks: [
+                    "Red Striped",
+                    "Blue"
+                ]
+            },
+            casual: {
+                shirts: [
+                    "NASA T-Shirt",
+                    "Thor T-Shirt",
+                    "Iron Man T-Shirt",
+                    "Capt America T-Shirt",
+                    "Flannel button down"
+                ],
+                pants: [
+                    "Dark jeans",
+                    "Light jeans"
+                ],
+                socks: [
+                    "Black no-show",
+                    "White no-show"
+                ]
+            }
+        }
+    },
+    color: "",
+
     //maybe if we pick a random color scheme first we can organize data that way. 
     // Define required scripts.
     getScripts: function() {
@@ -21,20 +74,19 @@ Module.register("randomoutfit", {
     },
 
    start: function() {
-       Log.info('Starting module: ' + this.name);
+       Log.log('Starting module: ' + this.name);
+
        moment.locale(config.language);
    },
     getShirts: function(color) {
-        return this.defaults.clothes[color].shirts;
+        return this.closet.clothes[color].shirts;
     },
     getPants: function(color) {
-        return this.defaults.clothes[color].pants;
+        return this.closet.clothes[color].pants;
     },
     getSocks: function(color) {
-        return this.defaults.clothes[color].socks;
+        return this.closet.clothes[color].socks;
     },
-
-    color: "",
 
     rules: [
         //check to see if its a casual day.
@@ -93,12 +145,13 @@ Module.register("randomoutfit", {
 
     getDom: function() {
         var c = this.getColor();
+
         var shirt = this.getShirts(c);
         var pants = this.getPants(c);
         var socks = this.getSocks(c);
 
         var displayText = "Today you should wear, a " + shirt[this.randomNumber(shirt.length)] + " with " + pants[this.randomNumber(pants.length)] + " and rock those " + socks[this.randomNumber(socks.length)] + " socks!";
-       // var displayText = c;
+        //var displayText = this.closet;
         //var testText = document.createTextNode(test);
         var wrapper = document.createElement("div");
         wrapper.className = "thin medium bright";
