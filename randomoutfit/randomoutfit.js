@@ -87,27 +87,30 @@ Module.register("randomoutfit", {
     getSocks: function(color) {
         return this.closet.clothes[color].socks;
     },
-
+    debug: "",
     rules: [
         //check to see if its a casual day.
         function (self) {
-            var day = moment().format('e');
+            var day = parseInt(moment().format('e'));
 
-            if(self.color == "") {
+            if(self.color === "") {
                 switch (day) {
                     case 1:
                     case 2:
                     case 3:
                     case 4:
-                        self.color = "";
+                        self.color = "here";
                         break;
                     case 5:
                     case 6:
                     case 0:
                         self.color = "casual";
                         break;
+                    default:
+                        self.color = "wow";
                 }
             }
+
             return self.color;
         },
         //if its not a casual day get a dress up color.
@@ -137,7 +140,7 @@ Module.register("randomoutfit", {
     getColor: function() {
         var color;
         var self = this;
-        for(var i = 0; i< this.rules.length; i++) {
+        for(var i = 0; i < this.rules.length; i++) {
             color = this.rules[i](self);
         }
         return color;
@@ -151,7 +154,7 @@ Module.register("randomoutfit", {
         var socks = this.getSocks(c);
 
         var displayText = "Today you should wear, a " + shirt[this.randomNumber(shirt.length)] + " with " + pants[this.randomNumber(pants.length)] + " and rock those " + socks[this.randomNumber(socks.length)] + " socks!";
-        //var displayText = this.closet;
+        // var displayText = this.debug;
         //var testText = document.createTextNode(test);
         var wrapper = document.createElement("div");
         wrapper.className = "thin medium bright";
