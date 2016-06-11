@@ -1,5 +1,6 @@
 # Module: Semi-Random Outfit Chooser
-This module was developed to choose an outfit based on some custom rules and a small amount of randomness. 
+
+A module for the [Magic Mirror 2 platform](https://github.com/MichMich/MagicMirror). This module was developed to choose an outfit based on some custom rules and a small amount of randomness. 
 
 ## Using the module
 
