@@ -36,7 +36,7 @@ module.exports = NodeHelper.create({
                 self.processData(JSON.parse(body));
             }
             else {
-                //@TODO Do something just in case we do not get the weather. 
+                //@TODO Do something just in case we do not get the weather.
                 console.log(error);
                 console.log(response.statusCode);
             }
@@ -53,8 +53,8 @@ module.exports = NodeHelper.create({
     },
     processData: function(data){
 
-        var temp = data.main.temp;
-        this.sendSocketNotification("GET_TEMP", temp);
+        var weather = data;
+        this.sendSocketNotification("GET_TEMP", weather);
 
     }
 });

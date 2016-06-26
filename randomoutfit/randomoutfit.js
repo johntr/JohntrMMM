@@ -78,7 +78,9 @@ Module.register("randomoutfit", {
         }
     },
     color: "",
-
+    debug: "",
+    weather: "",
+    warning: "",
     //maybe if we pick a random color scheme first we can organize data that way. 
     // Define required scripts.
     getScripts: function() {
@@ -99,8 +101,6 @@ Module.register("randomoutfit", {
     getSocks: function(color) {
         return this.closet.clothes[color].socks;
     },
-    debug: "",
-    weather: "",
     rules: [
         //check to see if its a casual day.
         function (self) {
@@ -146,7 +146,18 @@ Module.register("randomoutfit", {
         },
         //@TODO rule based on weather(add shorts or sweaters). Can we get the weather from the default weather modules? or Duplicate code?
         function(self) {
-            console.log("Do color stuff with weather.");
+            //console.log("Do color stuff with weather.");
+
+            if(self.weather.main.temp_max > 65) {
+                self.warning += "<br/>Its going to be warm today. Maybe shorts?"
+            }
+            if (self.weather.main.temp_min < 40) {
+                self.warning += "<br/>It's going to be cold, grab a sweater."
+            }
+            var rain = /rain/;
+            if (rain.exec(self.weather.weather['main'])){
+                self.warning += "<br/>It might rain today. Grab an umbrella!";
+            }
             return self.color;
         }
     ],
@@ -186,7 +197,12 @@ Module.register("randomoutfit", {
         var wrapper = document.createElement("div");
         wrapper.className = "thin medium bright";
         wrapper.innerHTML = displayText;
-
+        if (this.warning !== "") {
+            var warn = document.createElement("span");
+            warn.className = "thin small";
+            warn.innerHTML = this.warning;
+            wrapper.appendChild(warn);
+        }
         return wrapper;
     }
 });
